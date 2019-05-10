@@ -14,6 +14,7 @@
 #include "phys.h"
 #include "const.h"
 #include "sprite.h"
+#include "easing.h"
 
 // intializes game
 void initGame();
