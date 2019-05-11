@@ -280,10 +280,6 @@ int isCollidingCircVCirc(struct Manifold *m) {
     a = (struct Circle *)m->a;
     b = (struct Circle *)m->b;
 
-    if(a->inv_mass == 0 && b->inv_mass == 0) {
-        return 0;
-    }
-
     // vector from a to b
     struct v2 n;
     n.x = b->pos.x - a->pos.x;
@@ -319,10 +315,6 @@ int isCollidingCircVCirc(struct Manifold *m) {
 int isCollidingCircVRect(struct Manifold *m) {
     struct Circle *c = (struct Circle *)m->a;
     struct Rect *r = (struct Rect *)m->b;
-
-    if(c->inv_mass == 0) {
-        //return 0;
-    }
 
     // vector from a to b
     struct v2 n;
