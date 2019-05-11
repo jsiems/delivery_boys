@@ -15,13 +15,14 @@
 #include "const.h"
 #include "sprite.h"
 #include "easing.h"
+#include "event.h"
 
 // intializes game
 void initGame();
 
 // updates all game variables
 // draws all game objects to screen
-void updateGame();
+int updateGame();
 
 // events triggered by GLFW (keys pressed, etc...)
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);

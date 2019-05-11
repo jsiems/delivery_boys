@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 #include <glad/glad.h>              //defines opengl functions, etc
 #include <GLFW/glfw3.h>             //used for window and input
@@ -43,6 +44,10 @@ int main() {
     //enable depth test
     glEnable(GL_DEPTH_TEST);
 
+    long seed = time(0);
+    printf("seed: %lu\n", seed);
+    srand(seed);
+
     initGame();
 
     //keep track of FPS
@@ -65,7 +70,9 @@ int main() {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        updateGame();
+        if(updateGame()) {
+            glfwSetWindowShouldClose(window, 1U);
+        }
         
         // more rendering commands
         glfwSwapBuffers(window);
