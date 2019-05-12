@@ -9,6 +9,7 @@
 
 #include "player.h"
 #include "obstacle.h"
+#include "target.h"
 
 // an event controls when obstacles spawns
 struct Event {
@@ -19,7 +20,7 @@ struct Event {
     struct TexMan *texman;              // texture manager (might not be needed)
     void *params;                       // pointer to state params (if needed)
     void (*init)(struct Event *e);      // init function, ran each time this event is selected
-    void (*update)(struct Event *e, struct List *obs);    // update function
+    void (*update)(struct Event *e, struct List *obs, struct List *targs);    // update function
     void (*destroy)(struct Event *e);   // destroy function, frees any malloced memory for the params
 };
 
@@ -33,7 +34,7 @@ void initEvent(struct Event *e, struct TexMan *texman);
 
 // updates a single event, calls it's update function
 // returns 1 if event is complete
-int updateEvent(struct Event *e, struct Player *p, struct List *obs);
+int updateEvent(struct Event *e, struct Player *p, struct List *obs, struct List *targs);
 
 // destroys an event
 void destroyEvent(struct Event *e);

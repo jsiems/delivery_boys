@@ -17,7 +17,6 @@ extern double glfwGetTime();
 #define DEFAULT_MOVE_TIME (0.15f)
 #define PLAYER_START_SPEED (300.0f)
 #define PLAYER_ACCL (0.07f)                    // might change this to have speed increase discretely (ie 'level up')
-#define THROW_DELAY (0.5f)     // seconds between each throw
 
 // obstacle constants
 #define OBST_TYPE (1)
@@ -30,6 +29,11 @@ extern double glfwGetTime();
 #define PROJ_HEIGHT (40.0f)
 #define THROW_SPEED (900.0f)
 #define PROJ_ROT_SPEED (9.0f)
+
+// target constants
+#define TARG_TYPE (4)
+#define TARG_WIDTH (50)
+#define TARG_HEIGHT (250)
 
 // event constants
 #define EVENT_TYPE (2)

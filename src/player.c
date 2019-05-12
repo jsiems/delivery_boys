@@ -35,7 +35,8 @@ void initPlayer(struct Player *p, struct TexMan *texman) {
     p->speed = PLAYER_START_SPEED;
 
     p->tex_id = getTextureId(texman, "circle");
-    p->last_throw_time = 0;
+    p->l_throw_proc = 0;
+    p->r_throw_proc = 0;
 
     // lane movement stuff
     p->current_lane = MID_LANE;

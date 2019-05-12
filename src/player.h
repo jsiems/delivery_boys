@@ -24,7 +24,8 @@ struct Player {
     float speed;
 
     // throwing states
-    float last_throw_time;
+    int l_throw_proc;
+    int r_throw_proc;
 
     // movement states
     int moving;                 // if player is currently moving

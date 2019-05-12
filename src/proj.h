@@ -10,6 +10,7 @@
 #include "phys.h"
 #include "helper/list.h"
 #include "player.h"
+#include "target.h"
 
 struct Proj {
     int tex_id;
@@ -22,6 +23,8 @@ struct Proj {
 
     float last_update_time;
 
+    int collided;
+
     struct Circle col;
 };
 
@@ -33,7 +36,7 @@ void addProj(struct List *pjs, struct Player *p, struct TexMan *tman, int dir);
 
 // updates projectiles
 // will need list of houses soon
-void updateProjs(struct List *pjs, struct Player *p, struct SpriteRenderer *sprite, struct Shader *shader);
+void updateProjs(struct List *pjs, struct Player *p, struct List *targs, struct SpriteRenderer *sprite, struct Shader *shader, struct TexMan *texman);
 
 
 #endif

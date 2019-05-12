@@ -19,6 +19,9 @@ struct Event *current_event = 0;
 // projectiles
 struct List projs;
 
+// targets
+struct List targs;
+
 
 
 // *********** Prototypes *********
@@ -65,27 +68,17 @@ void initGame() {
     insertNode(&events, &rand_obs, sizeof(struct Event), EVENT_TYPE);
 
     initList(&projs);
+
+    initList(&targs);
 }
 
 int updateGame() {
     // update stuff
-    float current_time = getTime();
-
     updatePlayer(&player_g);
 
-    // check if player is throwing a projectile
-    if(player_g.throw_left && current_time > player_g.last_throw_time + THROW_DELAY) {
-        player_g.last_throw_time = current_time;
-        addProj(&projs, &player_g, &texman_g, -1);
-        fflush(stdout);
-    }
-    else if(player_g.throw_right && current_time > player_g.last_throw_time + THROW_DELAY) {
-        player_g.last_throw_time = current_time;
-        addProj(&projs, &player_g, &texman_g, 1);
-        fflush(stdout);
-    }
+    updateProjs(&projs, &player_g, &targs, &sprite_g, &sprite_shader_g, &texman_g);
 
-    updateProjs(&projs, &player_g, &sprite_g, &sprite_shader_g);
+    updateTargets(&targs, &player_g, &sprite_g, &sprite_shader_g);
 
     int death = updateObstacles(&player_g, &obstacles, &sprite_g, &sprite_shader_g);
 
@@ -96,7 +89,7 @@ int updateGame() {
         current_event = (struct Event *)events.front->data;
         initEvent(current_event, &texman_g);
     }
-    if(updateEvent(current_event, &player_g, &obstacles)) {
+    if(updateEvent(current_event, &player_g, &obstacles, &targs)) {
         destroyEvent(current_event);
         current_event = 0;
     }
