@@ -13,8 +13,7 @@
 // my files
 #include "phys.h"
 #include "const.h"
-#include "sprite.h"
-#include "easing.h"
+#include "render/sprite.h"
 #include "event.h"
 
 // intializes game

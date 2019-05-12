@@ -7,12 +7,12 @@
 
 #include "const.h"
 #include "func.h"
-#include "sprite.h"
-#include "shader.h"
-#include "texman.h"
+#include "render/sprite.h"
+#include "render/shader.h"
+#include "render/texman.h"
 #include "phys.h"
 #include "player.h"
-#include "list.h"
+#include "helper/list.h"
 
 // keeps tracks of obstacle parameters
 struct Obstacle {

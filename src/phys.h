@@ -4,8 +4,8 @@
 #include <math.h>
 #include <cglm/cglm.h>
 
-#include "sprite.h"
-#include "list.h"
+#include "render/sprite.h"
+#include "helper/list.h"
 #include "const.h"
 
 #define CIRC_TYPE 0

@@ -9,11 +9,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "shader.h"
-#include "sprite.h"
-#include "texman.h"
-#include "phys.h"
-#include "list.h"
 #include "const.h"
 #include "game.h"
 

@@ -4,11 +4,11 @@
 
 #include "const.h"
 #include "func.h"
-#include "sprite.h"
-#include "shader.h"
-#include "texman.h"
+#include "render/sprite.h"
+#include "render/shader.h"
+#include "render/texman.h"
 #include "phys.h"
-#include "easing.h"
+#include "helper/easing.h"
 
 // keeps track of player variables
 struct Player {

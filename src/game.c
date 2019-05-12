@@ -16,6 +16,9 @@ struct List obstacles;
 struct List events;
 struct Event *current_event = 0;
 
+// projectiles
+struct List projs;
+
 
 
 // *********** Prototypes *********
