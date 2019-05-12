@@ -63,12 +63,29 @@ void initGame() {
     initList(&obstacles);
     initList(&events);
     insertNode(&events, &rand_obs, sizeof(struct Event), EVENT_TYPE);
+
+    initList(&projs);
 }
 
 int updateGame() {
     // update stuff
+    float current_time = getTime();
 
     updatePlayer(&player_g);
+
+    // check if player is throwing a projectile
+    if(player_g.throw_left && current_time > player_g.last_throw_time + THROW_DELAY) {
+        player_g.last_throw_time = current_time;
+        addProj(&projs, &player_g, &texman_g, -1);
+        fflush(stdout);
+    }
+    else if(player_g.throw_right && current_time > player_g.last_throw_time + THROW_DELAY) {
+        player_g.last_throw_time = current_time;
+        addProj(&projs, &player_g, &texman_g, 1);
+        fflush(stdout);
+    }
+
+    updateProjs(&projs, &player_g, &sprite_g, &sprite_shader_g);
 
     int death = updateObstacles(&player_g, &obstacles, &sprite_g, &sprite_shader_g);
 
@@ -115,6 +132,22 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
         }
         else if(action == GLFW_RELEASE) {
             player_g.right = 0;
+        }
+    }
+    if(key == GLFW_KEY_Z) {
+        if(action == GLFW_PRESS) {
+            player_g.throw_left = 1;
+        }
+        else if(action == GLFW_RELEASE) {
+            player_g.throw_left = 0;
+        }
+    }
+    if(key == GLFW_KEY_X) {
+        if(action == GLFW_PRESS) {
+            player_g.throw_right = 1;
+        }
+        else if(action == GLFW_RELEASE) {
+            player_g.throw_right = 0;
         }
     }
 }

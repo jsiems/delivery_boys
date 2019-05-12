@@ -15,6 +15,7 @@
 #include "const.h"
 #include "render/sprite.h"
 #include "event.h"
+#include "proj.h"
 
 // intializes game
 void initGame();

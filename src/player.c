@@ -19,8 +19,10 @@ void drawPlayer(struct Player * p, struct SpriteRenderer *sprite, struct Shader 
 }
 
 void initPlayer(struct Player *p, struct TexMan *texman) {
+    float current_time = getTime();
+
     // physics variables
-    p->last_update_time = getTime();
+    p->last_update_time = current_time;
     p->score = 0;
     p->x = SCREEN_WIDTH / 2;
     p->y = 5 * SCREEN_HEIGHT / 6;
@@ -33,6 +35,7 @@ void initPlayer(struct Player *p, struct TexMan *texman) {
     p->speed = PLAYER_START_SPEED;
 
     p->tex_id = getTextureId(texman, "circle");
+    p->last_throw_time = 0;
 
     // lane movement stuff
     p->current_lane = MID_LANE;
@@ -45,13 +48,15 @@ void initPlayer(struct Player *p, struct TexMan *texman) {
 }
 
 void updatePlayer(struct Player *p) {
+    float current_time = getTime();
+
     // check for inputs
     if(p->left && !p->l_move_processed && p->current_lane != LEFT_LANE) {
         p->current_lane --;
         p->moving = 1;
         p->start_pos = p->x;
         p->end_pos = getLanePos(p->current_lane);
-        p->move_start_time = getTime();
+        p->move_start_time = current_time;
         p->move_time = DEFAULT_MOVE_TIME * abs(p->end_pos - p->start_pos) / (LANE_DIST);
         p->l_move_processed = 1;
     }
@@ -60,7 +65,7 @@ void updatePlayer(struct Player *p) {
         p->moving = 1;
         p->start_pos = p->x;
         p->end_pos = getLanePos(p->current_lane);
-        p->move_start_time = getTime();
+        p->move_start_time = current_time;
         p->move_time = DEFAULT_MOVE_TIME * abs(p->end_pos - p->start_pos) / (LANE_DIST);
         p->r_move_processed = 1;
     }
@@ -75,9 +80,9 @@ void updatePlayer(struct Player *p) {
     }
 
     // if the player is moving
-    if(p->moving && getTime() < p->move_start_time + p->move_time) {
+    if(p->moving && current_time < p->move_start_time + p->move_time) {
         p->x = p->start_pos + (p->end_pos - p->start_pos) * 
-                        SineEaseOut((getTime() - p->move_start_time)/ (p->move_time));
+                        SineEaseOut((current_time - p->move_start_time)/ (p->move_time));
     }
     // if player has finished moving
     else if(p->moving) {

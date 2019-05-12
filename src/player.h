@@ -23,6 +23,9 @@ struct Player {
     struct Circle col_bot;     // collision circles
     float speed;
 
+    // throwing states
+    float last_throw_time;
+
     // movement states
     int moving;                 // if player is currently moving
     int l_move_processed;       // flag indicating if current key press has been processed yet
@@ -35,6 +38,7 @@ struct Player {
 
     // inputs (could move to bitmap thing or enum)
     int left, right;  // what keys are currently pressed
+    int throw_left, throw_right;
 };
 
 // draws player to screen
