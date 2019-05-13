@@ -10,13 +10,6 @@ void drawProj(struct Proj *proj, struct SpriteRenderer *sprite, struct Shader *s
     (vec2) {PROJ_WIDTH, PROJ_HEIGHT},                   // size
     proj->rot,                                       // rotation
     (vec3){1.0f, 1.0f, 1.0f});
-
-    if(circ_id != 0) 
-    drawSprite(sprite, shader, circ_id, 
-    (vec2){proj->col.pos.x - proj->col.radius, proj->col.pos.y - proj->col.radius},   // position
-    (vec2) {proj->col.radius * 2, proj->col.radius * 2},                   // size
-    0.0f,                                       // rotation
-    (vec3){1.0f, 1.0f, 1.0f});  
 }
 
 void addProj(struct List *pjs, struct Player *p, struct TexMan *tman, int dir) {
@@ -24,13 +17,14 @@ void addProj(struct List *pjs, struct Player *p, struct TexMan *tman, int dir) {
 
     proj.x = p->x + dir * PLAYER_WIDTH / 2;
     proj.y = p->y;
-    proj.xv = THROW_SPEED * dir;
-    proj.rot = M_PI_2;              // starting angle is pi / 2 +- pi / 4
+    proj.vx = PROJ_THROW_SPEED * dir;
+    proj.vy = 0.0f;
+    proj.rot = (float)(rand() % (int)(M_PI_2 * 100.0f)) / 100.0f + M_PI_4;              // starting angle is pi / 2 +- pi / 4
     proj.rot_speed = PROJ_ROT_SPEED * dir;
     proj.tex_id = getTextureId(tman, "newspaper");
     proj.col.pos.x = proj.x;
     proj.col.pos.y = proj.y;
-    proj.col.radius = PROJ_WIDTH / 2;
+    proj.col.radius = (PROJ_WIDTH / 2) - 10.0f;
     proj.last_update_time = getTime();
     proj.collided = 0;
 
@@ -70,14 +64,17 @@ void updateProjs(struct List *pjs, struct Player *p, struct List *targs, struct 
         proj->last_update_time = current_time;
 
         // update location
-        proj->x += proj->xv * dt;
+        proj->x += proj->vx * dt;
+        proj->y += proj->vy * dt;
         proj->col.pos.x = proj->x;
         proj->col.pos.y = proj->y;
         proj->rot += proj->rot_speed * dt;
         if(proj->collided) {
-            proj->y += p->speed * dt;
-            proj->xv *= 0.8 * dt;
-            proj->rot_speed *= 0.8 * dt;
+            // rest_perc = percent of time while slowing down, i.e. 0.25 = slowed down 25%, 1.0 = stopped
+            float rest_perc = min(((current_time - proj->collide_time) / (proj->rest_time)), 1.0f);
+            proj->vx = proj->col_vx * (1.0f - rest_perc);
+            proj->vy = (p->speed - proj->col_vy) * (rest_perc) + proj->col_vy;
+            proj->rot_speed = proj->col_rot_vel * (1.0f - rest_perc);
         }
 
         drawProj(proj, sprite, shader);
@@ -95,7 +92,15 @@ void updateProjs(struct List *pjs, struct Player *p, struct List *targs, struct 
             if(isCollidingCircVRect(&m)) {
                 p->score ++;
                 proj->collided = 1;
-                proj->xv *= 0;
+                proj->collide_time = current_time;
+                proj->vx *= -((float)(rand() % 5) / 5.0f + 0.25f);
+                proj->vy = p->speed;
+                proj->col_vx = proj->vx;
+                proj->col_vy = ((float)(rand() % 100) / 1.0f - 50.0f) + p->speed;
+                proj->ax = -2 * proj->vx;
+                proj->rot_speed *= -1;
+                proj->col_rot_vel = proj->rot_speed;
+                proj->rest_time = (float)(rand() % (int)(100 * (PROJ_MAX_REST_TIME - PROJ_MIN_REST_TIME))) / 100.0f + PROJ_MIN_REST_TIME;
             }
 
             i = i->next;

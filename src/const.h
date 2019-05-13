@@ -27,8 +27,10 @@ extern double glfwGetTime();
 #define PROJ_TYPE (3)
 #define PROJ_WIDTH (40.0f)
 #define PROJ_HEIGHT (40.0f)
-#define THROW_SPEED (900.0f)
-#define PROJ_ROT_SPEED (9.0f)
+#define PROJ_THROW_SPEED (900.0f)
+#define PROJ_ROT_SPEED (8.0f)
+#define PROJ_MIN_REST_TIME (0.25f)
+#define PROJ_MAX_REST_TIME (0.35f)
 
 // target constants
 #define TARG_TYPE (4)

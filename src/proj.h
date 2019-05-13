@@ -17,13 +17,20 @@ struct Proj {
 
     float x;
     float y;
-    float xv;
+    float vx;
+    float vy;
+    float ax;
     float rot;
     float rot_speed;
 
     float last_update_time;
 
     int collided;
+    float collide_time;
+    float col_vx;
+    float col_vy;
+    float col_rot_vel;
+    float rest_time;
 
     struct Circle col;
 };

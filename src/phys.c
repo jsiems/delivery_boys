@@ -1,10 +1,6 @@
 
 #include "phys.h"
 
-#define min(x, y) (x < y ? x : y)
-#define max(x, y) (!min(x, y))
-#define clamp(a, min, max) ((a < min ? min : a) == (a > max ? max : a) ? a : (a < min ? min : max))
-
 // private global circle rendering variables
 static struct SpriteRenderer sprite;
 static struct Shader *shader;

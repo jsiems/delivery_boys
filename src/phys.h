@@ -7,6 +7,7 @@
 #include "render/sprite.h"
 #include "helper/list.h"
 #include "const.h"
+#include "func.h"
 
 #define CIRC_TYPE 0
 #define RECT_TYPE 1
