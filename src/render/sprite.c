@@ -4,6 +4,9 @@
 #define FPV 4
 
 void initSpriteRenderer(struct SpriteRenderer *sprite) {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     unsigned int VBO, VAO;
     // 6 vertices with 4 floats per vertex
     float verts[] = {

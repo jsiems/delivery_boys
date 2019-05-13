@@ -6,7 +6,7 @@ LDIR=-Llib -Ilib
 # libraries
 ifdef SYSTEMROOT
 	#windows libraries
-	LIBS= -lglfw3_win -lgdi32 -lopengl32
+	LIBS= -lglfw3_win -lgdi32 -lopengl32 -lfreetype
 else
 	#linux libraries
 	LIBS= -lglfw3_linux -lGL -lX11 -lpthread -lXrandr -lXi -ldl -lm -lXxf86vm -lXinerama -lXcursor -lrt
@@ -20,10 +20,10 @@ CFLAGS=-Wall -msse3 -O3 -I$(IDIR) $(LDIR) $(LIBS)
 # hide .o files in obj directory
 ODIR=obj
 
-_DEPS = render/sprite.h render/shader.h render/texman.h phys.h helper/list.h const.h game.h helper/easing.h event.h player.h obstacle.h func.h proj.h target.h
+_DEPS = render/sprite.h render/shader.h render/texman.h phys.h helper/list.h const.h game.h helper/easing.h event.h player.h obstacle.h func.h proj.h target.h render/text.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o render/shader.o render/sprite.o helper/glad.o render/texman.o phys.o helper/list.o game.o helper/easing.o event.o player.o obstacle.o func.o proj.o target.o
+_OBJ = main.o render/shader.o render/sprite.o helper/glad.o render/texman.o phys.o helper/list.o game.o helper/easing.o event.o player.o obstacle.o func.o proj.o target.o render/text.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 # tells make to check include directory for dependencies

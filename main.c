@@ -11,6 +11,7 @@
 
 #include "const.h"
 #include "game.h"
+#include "render/text.h"
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void glfw_error_callback(int code, const char *err_str);
@@ -68,7 +69,7 @@ int main() {
         if(updateGame()) {
             glfwSetWindowShouldClose(window, 1U);
         }
-        
+
         // more rendering commands
         glfwSwapBuffers(window);
         glfwPollEvents();

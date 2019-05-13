@@ -70,6 +70,8 @@ void initGame() {
     initList(&projs);
 
     initList(&targs);
+
+    initTextRenderer();
 }
 
 int updateGame() {
@@ -100,6 +102,10 @@ int updateGame() {
 
         resetGame();
     }
+
+    char score_string[50];
+    sprintf(score_string, "score: %d", player_g.score);
+    renderText(score_string, 10.0f, 30.0f, 0.5f, (vec3){0.2f, 0.8f, 0.4f});
 
     return 0;
 }

@@ -2,7 +2,7 @@
 #include "event.h"
 
 // EVENT: Random Objects
-#define MIN_OB_SPAWN_DIST (PLAYER_HEIGHT * 2 + OB_HEIGHT)
+#define MIN_OB_SPAWN_DIST (PLAYER_HEIGHT * 2 + OB_HEIGHT + 30.0f)
 #define MAX_OB_SPAWN_DIST (OB_HEIGHT * 3)
 #define MIN_TARG_SPAWN_DIST (TARG_HEIGHT * 1.5)
 #define MAX_TARG_SPAWN_DIST (TARG_HEIGHT * 5)
@@ -69,7 +69,7 @@ void updateRandObs(struct Event *e, struct List *obs, struct List *targs) {
         // spawn a single obstacle in a random lane
         int lane = (rand() % 3)  - 1;
         addObstacle(obs, lane, e->texman);
-        p->next_ob_spawn_dist = rand() % (MAX_OB_SPAWN_DIST - MIN_OB_SPAWN_DIST) + MIN_OB_SPAWN_DIST + e->current_dist;
+        p->next_ob_spawn_dist = rand() % (int)(MAX_OB_SPAWN_DIST - MIN_OB_SPAWN_DIST) + MIN_OB_SPAWN_DIST + e->current_dist;
     }
 
     if(p->next_targ_spawn_dist < e->current_dist) {

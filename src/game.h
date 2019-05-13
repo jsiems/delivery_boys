@@ -17,6 +17,7 @@
 #include "event.h"
 #include "proj.h"
 #include "target.h"
+#include "render/text.h"
 
 // intializes game
 void initGame();

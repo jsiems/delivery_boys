@@ -4,7 +4,7 @@
 
 #define TITLE "Delivery Boys"
 #define SCREEN_WIDTH 900
-#define SCREEN_HEIGHT 1200
+#define SCREEN_HEIGHT 1440
 #define FPS_LIMIT 144
 
 #define getTime glfwGetTime
@@ -16,7 +16,7 @@ extern double glfwGetTime();
 #define PLAYER_WIDTH (PLAYER_HEIGHT / 4)
 #define DEFAULT_MOVE_TIME (0.15f)
 #define PLAYER_START_SPEED (300.0f)
-#define PLAYER_ACCL (0.07f)                    // might change this to have speed increase discretely (ie 'level up')
+#define PLAYER_ACCL (0.05f)                    // might change this to have speed increase discretely (ie 'level up')
 
 // obstacle constants
 #define OBST_TYPE (1)
